@@ -17,6 +17,9 @@ function colorizeColorCodes() {
   }
   // https://stackoverflow.com/a/11868398/13126073
   function getContrastYIQ(hexcolor) {
+    if (hexcolor.length === 4) {
+      hexcolor = `#${hexcolor[1]}${hexcolor[1]}${hexcolor[2]}${hexcolor[2]}${hexcolor[3]}${hexcolor[3]}`;
+    }
     hexcolor = hexcolor.replace("#", "");
     var r = parseInt(hexcolor.substr(0, 2), 16);
     var g = parseInt(hexcolor.substr(2, 2), 16);
