@@ -1,28 +1,21 @@
-// Initialize button with user's preferred color
-let changeColor = document.getElementById("changeColor");
+let colorizeButton = document.getElementById("colorize-color-codes");
 
-// chrome.storage.sync.get("color", ({ color }) => {
-//   changeColor.style.backgroundColor = color;
-// });
-
-// When the button is clicked, inject setPageBackgroundColor into current page
-changeColor.addEventListener("click", async () => {
+colorizeButton.addEventListener("click", async () => {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
-    function: setPageBackgroundColor,
+    function: colorizeColorCodes,
   });
 });
 
-// The body of this function will be executed as a content script inside the
-// current page
-function setPageBackgroundColor() {
+function colorizeColorCodes() {
+  // https://github.com/padolsey/findAndReplaceDOMText/pull/59
   function htmlToElement(html) {
     var template = document.createElement("template");
     template.innerHTML = html;
     return template.content.firstChild;
   }
+  // https://stackoverflow.com/a/11868398/13126073
   function getContrastYIQ(hexcolor) {
     hexcolor = hexcolor.replace("#", "");
     var r = parseInt(hexcolor.substr(0, 2), 16);
@@ -32,12 +25,13 @@ function setPageBackgroundColor() {
     return yiq >= 128 ? "black" : "white";
   }
 
-  console.log("colorize start");
   let count = 0;
+  console.log("colorize start");
   const common = "padding:4px;border-radius:3px;border:1px solid grey";
+  // https://github.com/padolsey/findAndReplaceDOMText
   findAndReplaceDOMText(document.body, {
     find: /#(([0-9a-fA-F]{2}){3}|([0-9a-fA-F]){3})/g,
-    replace: function (portion, match) {
+    replace: function (portion) {
       count++;
       const text = `<span style="background:${
         portion.text

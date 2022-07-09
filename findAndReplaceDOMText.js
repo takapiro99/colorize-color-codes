@@ -6,6 +6,8 @@
  * Matches the text of a DOM node against a regular expression
  * and replaces each match (or node-separated portions of the match)
  * in the specified element.
+ * https://github.com/padolsey/findAndReplaceDOMText
+ *
  */
 (function (root, factory) {
   if (typeof module === "object" && module.exports) {
