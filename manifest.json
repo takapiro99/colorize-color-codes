@@ -1,15 +1,15 @@
 {
   "name": "Colorize Color Codes",
   "description": "preview the color code of the text on web site by changing the background color. Currently, only the hex format is supported.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "manifest_version": 3,
   "permissions": ["activeTab", "scripting"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "/images/get_started16.png",
-      "48": "/images/get_started48.png",
-      "128": "/images/get_started128.png"
+      "16": "/images/16.png",
+      "48": "/images/48.png",
+      "128": "/images/128.png"
     }
   },
   "icons": {
